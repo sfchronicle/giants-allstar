@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <title><%= json.project.seo_title %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="__sync_contentCategory" content="meterA">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <%= !json.project.embedded ? t.include("partials/_paywall.html") : t.include("partials/_embedframe.html") %>
+
+    <%= t.include("partials/_head.html") %>
+
+  </head>
+
+  <%= !json.project.embedded ? "<body>" : "<body is='responsive-body'>" %>
+
+  <div class="outer">
+    <div class="top-container">
+      <div class="title">It's been a long year</div>
+      <div class="title-deck">A year ago at the All-Star break, the Giants had the best record in baseball and fans were dreaming of another even-year parade through downtown San Francisco.</div>
+      <div class="author">By Mike Massa</div>
+      <div class="date">July 11, 2017</div>
+    </div>
+
+
+  </div>
+
+  <% var data = csv.winning_percentage %>
+
+  <div id="chart"></div>
+
+    <%= t.include("partials/_nav.html") %>
+
+
+    <%= t.include("partials/_footer.html") %>
+
+    <script src="app.js" async></script>
+    <%= t.include("partials/_helloSFC.html") %>
+
+  </body>
+</html>
