@@ -29,7 +29,24 @@
 
   <% var data = csv.winning_percentage %>
 
-  <div id="chart"></div>
+  <div class="charts-container">
+
+    <div class="chart" id="winning">
+      <div class="chart-title">Winning percentage</div>
+      <div class="chart-deck">From 102-win pace at the break last year to losing nearly 100 games in the span of a season.</div>
+    </div>
+
+    <div class="chart" id="runs">
+      <div class="chart-title">Runs per game</div>
+      <div class="chart-deck">If it seems like the offense has gotten worse, it’s because it has -- by nearly a full run per game.</div>
+    </div>
+
+    <div class="chart" id="batting">
+      <div class="chart-title">Batting average</div>
+      <div class="chart-deck">Imagine if Buster Posey was slumping like the rest of the team.</div>
+    </div>
+
+  </div>
 
     <%= t.include("partials/_nav.html") %>
 
