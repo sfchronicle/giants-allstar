@@ -9,7 +9,7 @@ var batting_data = "assets/batting.csv";
 
 // var data = csv.winning_percentage;
 
-var margin = {top: 20, right: 30, bottom: 40, left: 30},
+var margin = {top: 20, right: 30, bottom: 40, left: 40},
 	width = 300 - margin.right - margin.left,
 	height = 300 - margin.top - margin.bottom;
 
@@ -137,14 +137,14 @@ d3.csv(runs_data, function(data) {
 	runs_svg.append("g")
 		.call(d3.axisLeft(y).ticks(4));
 
-	var focus = runs_svg.append("g")
+	var runs_focus = runs_svg.append("g")
       .attr("class", "focus")
       .style("display", "none");
 
-    focus.append("circle")
+    runs_focus.append("circle")
     	.attr("r", 4.5);
 
-    focus.append("text")
+    runs_focus.append("text")
     	.attr("x", 9)
     	.attr("dy", ".35em");
 
@@ -153,21 +153,19 @@ d3.csv(runs_data, function(data) {
     	.attr("class", "overlay")
     	.attr("width", width - margin.left - margin.right)
     	.attr("height", height - margin.top - margin.bottom)
-    	.on("mouseover", function() { focus.style("display", "block"); })
-    	.on("mouseout", function() { focus.style("display", "none"); })
+    	.on("mouseover", function() { runs_focus.style("display", "block"); })
+    	.on("mouseout", function() { runs_focus.style("display", "none"); })
     	.on("mousemove", mousemove);
 
     function mousemove() {
     	var xPos = x.invert(d3.mouse(this)[0]) + .7;
-    	// console.log(xPos);
-    	//console.log(this);
     	var i = bisectDate(data, xPos) - 1;
     	var d = data[i];
 
-    	console.log(d.time);
+    	//console.log(y(d.runs));
 
-    	focus.attr("transform", "translate(" + x(d.time) + "," + y(d.runs) + ")");
-    	focus.select("text").text(d.runs);
+    	runs_focus.attr("transform", "translate(" + x(d.time) + "," + y(d.runs) + ")");
+    	runs_focus.select("text").text(d.runs);
 
     }
 });
@@ -191,7 +189,7 @@ d3.csv(batting_data, function(data) {
 
 	x.domain([-.3, 2.3]);
 	// y.domain([.3, d3.max(data, function(d) { return d.percentage; })]);
-	y.domain([2.4, 2.7]);
+	y.domain([.24, .27]);
 
 	batting_svg.append("path")
 		.data([data])
