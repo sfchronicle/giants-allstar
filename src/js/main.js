@@ -15,11 +15,12 @@ console.log("HELLO");
 var data_ids = ['#winning', '#runs', '#batting', '#homeruns', '#ops', '#era'];
 var all_data = [winningData, runsData, battingData, homerunsData, opsData, eraData];
 var y_ranges = [[.3, .65], [3.6, 4.8], [.24, .27], [.7, .9], [.65, .75], [3.5, 4.9]];
+var y_axis_labels = ["Winning percentage (wins per game)", "Runs per game", "Batting average", "Home runs per game", "OPS (on-base plus slugging)", "ERA (earned run average)"]
 // var winning_focus, runs_focus, batting_focus, homeruns_focus, ops_focus, era_focus;
 // var focuses = [winning_focus, runs_focus, batting_focus, homeruns_focus, ops_focus, era_focus];
 
-var margin = {top: 20, right: 30, bottom: 40, left: 40},
-	width = 300 - margin.right - margin.left,
+var margin = {top: 20, right: 30, bottom: 40, left: 55},
+	width = 350 - margin.right - margin.left,
 	height = 300 - margin.top - margin.bottom;
 
 var bisectDate = d3.bisector(function(d) { return d.time; }).right;
@@ -69,8 +70,27 @@ for (var i = 0; i < all_data.length; i++) {
 				return seasons[d];
 		}));
 
+	  // text label for the x axis
+  	svg.append("text") 
+  	.attr("class", "axis-label")            
+      .attr("transform",
+            "translate(" + (width/2) + " ," + 
+                           (height + margin.top + 20) + ")")
+      .style("text-anchor", "middle")
+      .text("Season");
+
 	svg.append("g")
 		.call(d3.axisLeft(y).ticks(3));
+
+  	// text label for the y axis
+  	svg.append("text")
+  		.attr("class", "axis-label")
+      	.attr("transform", "rotate(-90)")
+      	.attr("y", -55)
+      	.attr("x",0 - (height / 2))
+      	.attr("dy", "1em")
+      	.style("text-anchor", "middle")
+      	.text(y_axis_labels[i]);   
 
 	// var thisFocus = focuses[i];
 
