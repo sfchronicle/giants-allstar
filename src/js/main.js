@@ -15,6 +15,8 @@ console.log("HELLO");
 var data_ids = ['#winning', '#runs', '#batting', '#homeruns', '#ops', '#era'];
 var all_data = [winningData, runsData, battingData, homerunsData, opsData, eraData];
 var y_ranges = [[.3, .65], [3.6, 4.8], [.24, .27], [.7, .9], [.65, .75], [3.5, 4.9]];
+// var winning_focus, runs_focus, batting_focus, homeruns_focus, ops_focus, era_focus;
+// var focuses = [winning_focus, runs_focus, batting_focus, homeruns_focus, ops_focus, era_focus];
 
 var margin = {top: 20, right: 30, bottom: 40, left: 40},
 	width = 300 - margin.right - margin.left,
@@ -70,6 +72,8 @@ for (var i = 0; i < all_data.length; i++) {
 	svg.append("g")
 		.call(d3.axisLeft(y).ticks(3));
 
+	// var thisFocus = focuses[i];
+
 	var focus = svg.append("g")
       .attr("class", "focus")
       .style("display", "none");
@@ -82,7 +86,7 @@ for (var i = 0; i < all_data.length; i++) {
     	.attr("dy", ".35em");
 
     svg.append("rect")
-    	.attr("transform", "translate(" + margin.left-20 + "," + margin.top + ")")
+    	.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
     	.attr("class", "overlay")
     	.attr("width", width)
     	.attr("height", height)
@@ -90,18 +94,28 @@ for (var i = 0; i < all_data.length; i++) {
     	.on("mouseout", function() { focus.style("display", "none"); })
     	.on("mousemove", mousemove);
 
+    //console.log(focus[0]);
+
     function mousemove() {
+    	
     	var xPos = x.invert(d3.mouse(this)[0]) + .7;
-    	// console.log(xPos);
+    	//console.log(xPos);
     	//console.log(this);
     	var i = bisectDate(data, xPos) - 1;
     	var d = data[i];
 
-    	// console.log(d.time);
+    	console.log(d.val);
 
-    	//if (xPos < i+1 || xPos > i-1) {
+    	// var thisFocus = svg.selectAll("focus");
+    	// console.log(thisFocus);
+    	
     	focus.attr("transform", "translate(" + x(d.time) + "," + y(d.val) + ")");
     	focus.select("text").text(d.val);
+
+    	// thisFocus.attr("translate", function(d) {
+    	// 	console.log(d);
+
+    	// })
     }
 //})
 
