@@ -4,16 +4,16 @@ var d3 = require("d3");
 console.log("HELLO");
 
 // load data files
-var winning_data = "assets/winning_percentage.csv";
-var runs_data = "assets/runs.csv";
-var batting_data = "assets/batting.csv";
-var homeruns_data = "assets/homeruns.csv";
-var ops_data = "assets/ops.csv";
-var era_data = "assets/era.csv";
+// var winning_data = "assets/winning_percentage.csv";
+// var runs_data = "assets/runs.csv";
+// var batting_data = "assets/batting.csv";
+// var homeruns_data = "assets/homeruns.csv";
+// var ops_data = "assets/ops.csv";
+// var era_data = "assets/era.csv";
 
 // lists of things to loop through
 var data_ids = ['#winning', '#runs', '#batting', '#homeruns', '#ops', '#era'];
-var all_data = [winning_data, runs_data, batting_data, homeruns_data, ops_data, era_data];
+var all_data = [winningData, runsData, battingData, homerunsData, opsData, eraData];
 var y_ranges = [[.3, .65], [3.6, 4.8], [.24, .27], [.7, .9], [.65, .75], [3.5, 4.9]];
 
 var margin = {top: 20, right: 30, bottom: 40, left: 40},
@@ -49,7 +49,7 @@ for (var i = 0; i < all_data.length; i++) {
 
 	var range = y_ranges[i];
 
-d3.csv(data, function(data) {
+//d3.csv(data, function(data) {
 
 	x.domain([-.3, 2.3]);
 	y.domain(range);
@@ -103,7 +103,7 @@ d3.csv(data, function(data) {
     	focus.attr("transform", "translate(" + x(d.time) + "," + y(d.val) + ")");
     	focus.select("text").text(d.val);
     }
-})
+//})
 
 }
 

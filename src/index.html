@@ -63,6 +63,15 @@
 
   </div>
 
+  <script>
+      var winningData = <%= JSON.stringify(csv.winning_percentage) %>;
+      var runsData = <%= JSON.stringify(csv.runs) %>;
+      var battingData = <%= JSON.stringify(csv.batting) %>;
+      var homerunsData = <%= JSON.stringify(csv.homeruns) %>;
+      var opsData = <%= JSON.stringify(csv.ops) %>;
+      var eraData = <%= JSON.stringify(csv.era) %>;
+    </script>
+
     <%= t.include("partials/_nav.html") %>
 
 
