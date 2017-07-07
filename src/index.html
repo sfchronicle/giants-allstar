@@ -31,6 +31,11 @@
 
   <div class="charts-container">
 
+    <div class="multiline-container">
+      <div class="multiline-title"></div>
+      <div id="multiline-chart"></div>
+    </div>
+
     <div class="chart" id="chart0">
       <div class="chart-title">Winning percentage</div>
       <div class="chart-deck">From 102-win pace at the break last year to losing nearly 100 games in the span of a season.</div>
@@ -61,6 +66,8 @@
       <div class="chart-deck">Starting pitching is supposed to be the strength of the team. But when the starting five have an ERA hovering around 5.00 and the offense scores less than four runs per game, it’s no wonder they’re at the bottom of the standings.</div>
     </div>
 
+
+
   </div>
 
   <script>
@@ -70,6 +77,8 @@
       var homerunsData = <%= JSON.stringify(csv.homeruns) %>;
       var opsData = <%= JSON.stringify(csv.ops) %>;
       var eraData = <%= JSON.stringify(csv.era) %>;
+
+      var allTeamsData = <%= JSON.stringify(csv.post_allstar) %>;
     </script>
 
     <%= t.include("partials/_nav.html") %>

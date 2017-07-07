@@ -1,9 +1,7 @@
 require("./lib/social"); //Do not delete
 var d3 = require("d3");
 
-console.log("HELLO");
-
-
+function miniLineCharts() {
 // lists of things to loop through
 var data_ids = ['#chart0', '#chart1', '#chart2', '#chart3', '#chart4', '#chart5'];
 var all_data = [winningData, runsData, battingData, homerunsData, opsData, eraData];
@@ -30,7 +28,6 @@ for (var i = 0; i < all_data.length; i++) {
 	var yAxis=  d3.axisLeft(y);
 
 	var bisectDate = d3.bisector(function(d) { return d.time; }).right;
-
 	var data = all_data[i];
 
 	var line = d3.line()
@@ -136,10 +133,113 @@ for (var i = 0; i < all_data.length; i++) {
     		var thisFocus = this.parentNode.getElementsByClassName("focus")[0];
     		var thisFocus = d3.select(thisFocus);
     		thisFocus.attr("transform", "translate(" + x(_d.time) + "," + y(_d.val) + ")");
-    		thisFocus.select("text").text(_d.val);
-
-    		    	
+    		thisFocus.select("text").text(_d.val);		    	
     	});
+}
 
 }
 
+miniLineCharts();
+
+/* -----------------------------------------------------------*/
+
+//console.log(allTeamsData);
+
+var teams = ["Giants", "Braves", "Marlins", "Mets", "Phillies", "Nationals", "Dodgers", "Rockies", "Dbacks", "Padres", "Reds", "Brewers",
+"Pirates", "Cardinals", "Cubs"];
+// var colors = ["#FE5A1D", "#162550", "#0783C9", "#f8c700", "#D41244", "#c68d2a", "#bb4444", "#886e91", "#e0cb30", "#397fc6", "#a86857", "#4fb07b", "#b97046", "#5065af", "#9fd6d2"]
+
+var margin = {top: 20, right: 20, bottom: 40, left: 50},
+    width = 960 - margin.right - margin.left,
+    height = 600 - margin.top - margin.bottom;
+
+var x = d3.scaleLinear().range([0, width]);
+var y = d3.scaleLinear().range([height, 0]);
+
+
+
+var svg = d3.select("#multiline-chart")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// allTeamsData.forEach(function(d) {
+//     console.log(d);
+// });
+   
+x.domain(d3.extent(allTeamsData, function(d) { return d.Count; }));
+y.domain([-40, 35]);
+
+// svg.append("path")
+//     .data([allTeamsData])
+//     .attr("class", "line")
+//     .attr("d", line);
+
+var teamLabel = svg.append("g")
+      .attr("class", "label")
+      .style("display", "none");
+
+teamLabel.append("text")
+        .attr("x", 200)
+        .attr("dy", ".35em");
+
+for (var i = 0; i < teams.length; i++) {
+
+    //var team = teams[i];
+    var line = d3.line()
+        .curve(d3.curveBasis)
+        .x(function(d) { return x(d.Count); })
+        .y(function(d) { return y(eval("d." + teams[i])); });
+
+    svg.append("path")
+    .data([allTeamsData])
+    .attr("class", function(d) {
+        if (teams[i] == "Giants") {
+            return "line";
+        } else {
+            return "_line";
+        }
+    })
+    .attr("id", function(d) {
+        return teams[i];
+    })
+    //.attr("class", "_line" + " " + teams[i])
+    .attr("d", line)
+    .on("mouseover", function(d) {
+        console.log(this.getAttribute('id'));
+        var thisLabel = this.parentNode.getElementsByClassName("label")[0];
+        var thisLabel = d3.select(thisLabel);
+            thisLabel.select("text").text(this.getAttribute('id'));
+    })
+ 
+
+}
+
+    // text label for the x axis
+    svg.append("text") 
+    .attr("class", "bigger-axis-label")            
+      .attr("transform",
+            "translate(" + (width/2) + " ," + 
+                           (height + margin.top +25) + ")")
+      .style("text-anchor", "middle")
+      .text("Date");
+
+    svg.append("text")
+        .attr("class", "bigger-axis-label")
+        .attr("transform", "rotate(-90)")
+        .attr("y", -55)
+        .attr("x",0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text("Score");  
+
+svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
+
+
+
+svg.append("g")
+//.attr("transform", "translate(0," + width + ")")
+    .call(d3.axisLeft(y).ticks(10));
