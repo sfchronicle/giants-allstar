@@ -11,7 +11,7 @@ var y_ranges = [[.3, .65], [3.6, 4.8], [.24, .27], [.7, .9], [.65, .75], [3.5, 4
 var y_axis_labels = ["Winning percentage (wins per game)", "Runs per game", "Batting average", "Home runs per game", "OPS (on-base plus slugging)", "ERA (earned run average)"];
 
 var margin = {top: 20, right: 30, bottom: 40, left: 55},
-	width = 350 - margin.right - margin.left,
+	width = 400 - margin.right - margin.left,
 	height = 300 - margin.top - margin.bottom;
 
 
