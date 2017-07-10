@@ -147,7 +147,9 @@ miniLineCharts();
 
 var teams = ["Giants", "Braves", "Marlins", "Mets", "Phillies", "Nationals", "Dodgers", "Rockies", "Dbacks", "Padres", "Reds", "Brewers",
 "Pirates", "Cardinals", "Cubs"];
-// var colors = ["#FE5A1D", "#162550", "#0783C9", "#f8c700", "#D41244", "#c68d2a", "#bb4444", "#886e91", "#e0cb30", "#397fc6", "#a86857", "#4fb07b", "#b97046", "#5065af", "#9fd6d2"]
+
+//var teams = {"Giants": "NL West", "Braves": "NL East", "Marlins": "NL East", "Mets": "NL East", "Phillies": "NL East", "Nationals": "NL East", "Dodgers": "NL West", "Rockies": "NL West", "Dbacks": "NL West", "Padres": "NL West", "Reds": "NL Central", "Brewers": "NL Central",
+//"Pirates": "NL Central", "Cardinals": "NL Central", "Cubs": "NL Central", "Orioles": "AL East", "Red Sox": "AL East", "Yankees": "AL East", "Rays": "AL East", "Blue Jays": "AL East", };
 
 var margin = {top: 20, right: 20, bottom: 40, left: 50},
     width = 960 - margin.right - margin.left,
@@ -184,13 +186,25 @@ teamLabel.append("text")
         .attr("x", 200)
         .attr("dy", ".35em");
 
+// var line = d3.line()
+//     .curve(d3.curveBasis)
+//     .x(function(d) { return x(d.Count); })
+//     .y(function(d) { 
+//         //console.log(d.Giants);
+//         return y(d.team); });
+
+// var teams = allTeamsData;
+// console.log(teams);
+
 for (var i = 0; i < teams.length; i++) {
 
-    //var team = teams[i];
+    var team = teams[i];
     var line = d3.line()
         .curve(d3.curveBasis)
         .x(function(d) { return x(d.Count); })
-        .y(function(d) { return y(eval("d." + teams[i])); });
+        .y(function(d) { 
+            //console.log(d.Giants);
+            return y(eval("d." + teams[i])); });
 
     svg.append("path")
     .data([allTeamsData])
@@ -207,7 +221,8 @@ for (var i = 0; i < teams.length; i++) {
     //.attr("class", "_line" + " " + teams[i])
     .attr("d", line)
     .on("mouseover", function(d) {
-        console.log(this.getAttribute('id'));
+        //console.log(this.getAttribute('id'));
+        console.log(d);
         var thisLabel = this.parentNode.getElementsByClassName("label")[0];
         var thisLabel = d3.select(thisLabel);
             thisLabel.select("text").text(this.getAttribute('id'));
