@@ -31,9 +31,10 @@
 
   <div class="charts-container">
 
-    <div class="multiline-container">
-      <div class="multiline-title"></div>
-      <div id="multiline-chart"></div>
+    <div id="multiline-chart">
+      <div class="multiline-title">Game-by-game results since 2016's All-Star break</div>
+      <div class="multiline-deck">The orange dotted line represents where the Giants were after the first half of 2016. Hover over each line to see the team name and its current record.</div>
+      
     </div>
 
     <div class="chart" id="chart0">
@@ -78,7 +79,7 @@
       var opsData = <%= JSON.stringify(csv.ops) %>;
       var eraData = <%= JSON.stringify(csv.era) %>;
 
-      var allTeamsData = <%= JSON.stringify(csv.post_allstar_transpose) %>;
+      var allTeamsData = <%= JSON.stringify(csv.post_allstar_transpose_2) %>;
     </script>
 
     <%= t.include("partials/_nav.html") %>

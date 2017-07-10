@@ -8,9 +8,15 @@ var all_data = [winningData, runsData, battingData, homerunsData, opsData, eraDa
 var y_ranges = [[.3, .65], [3.6, 4.8], [.24, .27], [.7, .9], [.65, .75], [3.5, 4.9]];
 var y_axis_labels = ["Winning percentage (wins per game)", "Runs per game", "Batting average", "Home runs per game", "OPS (on-base plus slugging)", "ERA (earned run average)"];
 
-var margin = {top: 20, right: 30, bottom: 40, left: 55},
-	width = 400 - margin.right - margin.left,
-	height = 300 - margin.top - margin.bottom;
+if (screen.width <= 400) {
+    var margin = {top: 20, right: 30, bottom: 40, left: 55},
+       width = 320 - margin.right - margin.left,
+       height = 300 - margin.top - margin.bottom;
+} else {
+    var margin = {top: 20, right: 30, bottom: 40, left: 55},
+	   width = 400 - margin.right - margin.left,
+	   height = 300 - margin.top - margin.bottom;
+}
 
 
 // labels for x axis
@@ -98,7 +104,6 @@ for (var i = 0; i < all_data.length; i++) {
     	.data(all_data[i])
     	.enter()
     	.append("rect")
-    	.attr("transform", "translate(" + margin.left-20 + "," + margin.top + ")")
     	.attr("class", "overlay")
     	.attr("width", width)
     	.attr("height", height)
@@ -145,34 +150,51 @@ miniLineCharts();
 
 //console.log(allTeamsData);
 
-var teams = ["Giants", "Braves", "Marlins", "Mets", "Phillies", "Nationals", "Dodgers", "Rockies", "Dbacks", "Padres", "Reds", "Brewers",
-"Pirates", "Cardinals", "Cubs"];
+function multiLineChart() {
+
+var teams = ["Giants", "Giants_last", "Braves", "Marlins", "Mets", "Phillies", "Nationals", "Dodgers", "Rockies", "D'backs", "Padres", "Reds", "Brewers",
+"Pirates", "Cardinals", "Cubs", "Orioles", "Red Sox", "Yankees", "Rays", "Blue Jays", "White Sox", "Indians", "Tigers", "Royals", "Twins", "A's", "Astros", "Angels", "Mariners", "Rangers"];
+var teams_sanitized = ["Giants", "Giants_last", "Braves", "Marlins", "Mets", "Phillies", "Nationals", "Dodgers", "Rockies", "Dbacks", "Padres", "Reds", "Brewers",
+"Pirates", "Cardinals", "Cubs", "Orioles", "RedSox", "Yankees", "Rays", "BlueJays", "WhiteSox", "Indians", "Tigers", "Royals", "Twins", "As", "Astros", "Angels", "Mariners", "Rangers"];
+var records = {"Giants": "64-98", "Braves": "79-80", "Marlins": "73-87", "Mets": "79-81", "Phillies":"58-101", "Nationals": "93-67", "Dodgers": "101-60", "Rockies":"87-78", "D'backs":"84-77", "Padres":"68-93", "Reds":"75-86", "Brewers":"85-81",
+"Pirates":"74-87", "Cardinals":"83-79", "Cubs":"93-68", "Orioles":"80-83", "Red Sox":"94-70", "Yankees":"85-75", "Rays":"81-83", "Blue Jays":"79-80", "White Sox":"71-90", "Indians":"89-71", "Tigers":"79-80", "Royals":"80-81", "Twins":"72-90", "A's":"70-92", "Astros":"96-66", "Angels":"82-83", "Mariners":"84-79", "Rangers":"84-76"};
 
 //var teams = {"Giants": "NL West", "Braves": "NL East", "Marlins": "NL East", "Mets": "NL East", "Phillies": "NL East", "Nationals": "NL East", "Dodgers": "NL West", "Rockies": "NL West", "Dbacks": "NL West", "Padres": "NL West", "Reds": "NL Central", "Brewers": "NL Central",
 //"Pirates": "NL Central", "Cardinals": "NL Central", "Cubs": "NL Central", "Orioles": "AL East", "Red Sox": "AL East", "Yankees": "AL East", "Rays": "AL East", "Blue Jays": "AL East", };
 
-var margin = {top: 20, right: 20, bottom: 40, left: 50},
-    width = 960 - margin.right - margin.left,
+// var margin = {top: 20, right: 65, bottom: 40, left: 50},
+//     width = 960 - margin.right - margin.left,
+//     height = 600 - margin.top - margin.bottom;
+
+if (screen.width <= 480) {
+    var margin = {top: 15, right: 150, bottom: 40, left: -35},
+    width = 360 - margin.right - margin.left,
+    height = 300 - margin.top - margin.bottom;
+} else {
+    var margin = {top: 20, right: 170, bottom: 40, left: 0},
+    width = 1060 - margin.right - margin.left,
     height = 600 - margin.top - margin.bottom;
+}
 
 var x = d3.scaleLinear().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
 
-
+    var xAxis = d3.axisBottom(x);
+    var yAxis=  d3.axisLeft(y);
 
 var svg = d3.select("#multiline-chart")
             .append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+            .attr("transform", "translate(" + margin.left + ",0)");
 
 // allTeamsData.forEach(function(d) {
 //     console.log(d);
 // });
 
-x.domain([0, 167]);
+x.domain([0, 180]);
 // x.domain(d3.extent(allTeamsData, function(d) { return d.Count; }));
-y.domain([-40, 35]);
+y.domain([-49, 45]);
 
 // svg.append("path")
 //     .data([allTeamsData])
@@ -187,6 +209,8 @@ teamLabel.append("text")
         .attr("x", 200)
         .attr("dy", ".35em");
 
+
+
 // var line = d3.line()
 //     .curve(d3.curveBasis)
 //     .x(function(d) { return x(d.Count); })
@@ -198,62 +222,120 @@ teamLabel.append("text")
 console.log(allTeamsData);
 
 var flatTeamData;
+var flatTeamDataNested;
 
 for (var i = 0; i < teams.length; i++) {
 
     var team = teams[i];
+    var team_sanitized = teams_sanitized[i];
 
 		var teamData = allTeamsData[team];
 		flatTeamData = [];
-		for (var idx=1; idx<167; idx++){
+        flatTeamDataNested = [];
+   
+		for (var idx=1; idx<180; idx++){
 		  flatTeamData.push(
 		    {date: idx, standing: teamData[idx]}
 		  );
 		};
-		console.log(flatTeamData);
+
+        // flatTeamData.push(
+        //     {team: team, scores: flatTeamDataNested}
+        // );
+
+		//console.log(flatTeamData);
+
 
     var line = d3.line()
         .curve(d3.curveBasis)
-        .x(function(d) {
-					console.log(d);
-					// console.log(d.date);
-					return x(d.date);
-					// return x(d.Count);
-				})
-        .y(function(d) {
-          //console.log(d.Giants);
-						// console.log(d.standing);
-          	return y(d.standing);
-					});
+        .x(function(d) { return x(d.date); })
+        .y(function(d) { return y(d.standing); })
 
     svg.append("path")
     	.data([flatTeamData])
-			.attr("class","line")
-			.attr("id",team)
+			.attr("class", function(d) {
+                if (teams[i] == "Giants") {
+                    return "line";
+                } else {
+                    return "_line";
+                }
+            })
+            .attr("transform", "translate(55,0)")
+			.attr("id",team_sanitized)
 			.attr("d", line)
 			.on("mouseover",function(d) {
+
 				console.log(this.getAttribute('id'));
+
+				var id = this.getAttribute('id');
+                d3.select("._"+id).classed("show", true);
+
+                if (id != "Giants") {
+                    d3.select(this).classed("moused", true);
+
+                } else {
+                    d3.select(this).classed("giants-moused", true);
+                }
+                
 			})
-    // .attr("class", function(d) {
-				// console.log(d);
-        // if (teams[i] == "Giants") {
-        //     return "line";
-        // } else {
-        //     return "_line";
-        // }
-    // })
-    // .attr("id", function(d) {
-		// 		console.log(d);
-    //     return team;
-    // })
-    //.attr("class", "_line" + " " + teams[i])
-    // .on("mouseover", function(d) {
-    //     //console.log(this.getAttribute('id'));
-    //     console.log(d);
-    //     var thisLabel = this.parentNode.getElementsByClassName("label")[0];
-    //     var thisLabel = d3.select(thisLabel);
-    //         thisLabel.select("text").text(this.getAttribute('id'));
-    // })
+            .on("mouseout", function(d) {
+                var id = this.getAttribute('id');
+                d3.select("._"+id).classed("show", false);
+
+                if (id != "Giants") {
+                    d3.select(this).classed("moused", false);
+                } else {
+                    d3.select(this).classed("giants-moused", false);
+                }
+            })
+
+        // svg.append("path")
+    //     .data([flatTeamData])
+    //         .attr("class", "invisible-line")
+    //         .attr("id",team_sanitized)
+    //         .attr("d", line)
+    //         .on("mouseover",function(d) {
+    //             //console.log(this);
+    //             d3.select(this).classed("moused", true);
+    //             var id = this.getAttribute('id');
+    //             console.log(id);
+    //             console.log(records[id]);
+                
+    //         })
+    //         .on("mouseout", function(d) {
+    //             d3.select(this).classed("moused", false);
+    //         })
+
+    svg.append("text")
+        .data([flatTeamData])
+        .attr("transform", function(d) {
+            if (screen.width >= 480) {
+                var x_posn = x(d[d.length - 1].date);
+                var y_posn = y(d[d.length - 1].standing);
+                return "translate(" + x_posn + "," + y_posn + ")";
+            } else {
+                return "translate(" + ((width/2)-45) + "," + (height-20) + ")";
+            }
+        })
+        .attr("x", 60)
+        .attr("y", ".35em")
+        .attr("id",team_sanitized)
+        .attr("class", function(d) {
+            var id = this.getAttribute('id');
+            if (id == 'Giants') {
+                return ("_" + id);
+            } else {
+                return ("_" + id + " label");
+            }
+        })
+        .text(function(d) {
+            return team + ", " + records[team];
+        })
+
+
+
+
+
 
 
 }
@@ -262,7 +344,7 @@ for (var i = 0; i < teams.length; i++) {
     svg.append("text")
     .attr("class", "bigger-axis-label")
       .attr("transform",
-            "translate(" + (width/2) + " ," +
+            "translate(" + (width/2 + 55) + " ," +
                            (height + margin.top +25) + ")")
       .style("text-anchor", "middle")
       .text("Date");
@@ -270,18 +352,22 @@ for (var i = 0; i < teams.length; i++) {
     svg.append("text")
         .attr("class", "bigger-axis-label")
         .attr("transform", "rotate(-90)")
-        .attr("y", -55)
+        .attr("y", 0)
         .attr("x",0 - (height / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
-        .text("Score");
+        .text("Games above or below .500");
 
 svg.append("g")
-    .attr("transform", "translate(0," + height + ")")
+    .attr("transform", "translate(55," + height + ")")
     .call(d3.axisBottom(x));
 
 
 
 svg.append("g")
-//.attr("transform", "translate(0," + width + ")")
+.attr("transform", "translate(55,0)")
     .call(d3.axisLeft(y).ticks(10));
+
+}
+
+multiLineChart();

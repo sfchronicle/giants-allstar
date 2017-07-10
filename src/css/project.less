@@ -24,12 +24,12 @@
 	text-align: center;
 }
 
-.chart-title, .chart-deck {
+.chart-title, .chart-deck, .multiline-title, .multiline-deck {
 	text-align: center;
 
 }
 
-.chart-title {
+.chart-title, .multiline-title {
 	font-family: "AntennaRegular", Helvetica Neue, Helvetica, sans-serif;
 	font-size: 18px;
 	// font-weight: bold;
@@ -37,7 +37,7 @@
 	padding-bottom: 10px;
 }
 
-.chart-deck {
+.chart-deck, .multiline-deck {
 	font-family: "AntennaExtraLight", Helvetica Neue, Helvetica, sans-serif;
 	font-size: 14px;
 	height: 7em;
@@ -47,7 +47,7 @@
 
 .line {
 	fill: none;
-	stroke-width: 2.5px;
+	stroke-width: 3px;
 	stroke: #FE5A1D;
 }
 
@@ -63,6 +63,9 @@
 
 .bigger-axis-label {
 	font-size: 16px;
+	@media @mobile {
+		font-size: 12px;
+	}
 
 	
 }
@@ -77,16 +80,57 @@
 	pointer-events: all;
 }
 
-.multiline-container {
+#multiline-chart {
 	width: 100%;
 	margin-bottom: 50px;
 }
 
 ._line {
 	fill: none;
-	stroke-width: 1px;
+	z-index: -1;
+	stroke-width: 1.5px;
 	stroke: #C0C0C0;
 }
 
+.invisible-line {
+	opacity: 0;
+	stroke-width: 3px;
+}
+
+.moused {
+	
+	fill: none;
+	stroke-width: 3px;
+	stroke: black;
+	z-index: 5;
+	@media @mobile {
+		stroke-width: 2px;
+	}
+}
+
+.giants-moused {
+	fill: none;
+	stroke-width: 4.5px;
+	stroke: #d34401;
+}
+
+.label {
+	display: none;
+}
+
+.show {
+	display: block;
+}
+
+._Giants {
+	font-family:"AntennaRegular", Helvetica Neue, Helvetica, sans-serif;
+}
+
+#Giants_last {
+	fill: none;
+	stroke-width: 2px;
+	stroke-dasharray: 5,5;
+	stroke: #FE5A1D;
+}
 
 
