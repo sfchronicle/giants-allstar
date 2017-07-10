@@ -232,7 +232,7 @@ for (var i = 0; i < teams.length; i++) {
 			.attr("id",team)
 			.attr("d", line)
 			.on("mouseover",function(d) {
-				console.log(d);
+				console.log(this.getAttribute('id'));
 			})
     // .attr("class", function(d) {
 				// console.log(d);
