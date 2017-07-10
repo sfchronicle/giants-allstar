@@ -61,10 +61,10 @@ for (var i = 0; i < all_data.length; i++) {
 		}));
 
 	// text label for the x axis
-  	svg.append("text") 
-  	.attr("class", "axis-label")            
+  	svg.append("text")
+  	.attr("class", "axis-label")
       .attr("transform",
-            "translate(" + (width/2) + " ," + 
+            "translate(" + (width/2) + " ," +
                            (height + margin.top + 20) + ")")
       .style("text-anchor", "middle")
       .text("Season");
@@ -81,7 +81,7 @@ for (var i = 0; i < all_data.length; i++) {
       	.attr("x",0 - (height / 2))
       	.attr("dy", "1em")
       	.style("text-anchor", "middle")
-      	.text(y_axis_labels[i]);   
+      	.text(y_axis_labels[i]);
 
 	var thisFocus = svg.append("g")
       .attr("class", "focus")
@@ -102,12 +102,12 @@ for (var i = 0; i < all_data.length; i++) {
     	.attr("class", "overlay")
     	.attr("width", width)
     	.attr("height", height)
-    	.on("mouseover", function(d) { 
+    	.on("mouseover", function(d) {
     	    var thisFocus = this.parentNode.getElementsByClassName("focus")[0];
     		var thisFocus = d3.select(thisFocus);
-    		thisFocus.style("display", "block"); 
+    		thisFocus.style("display", "block");
     	})
-    	.on("mouseout", function() { 
+    	.on("mouseout", function() {
     		var thisFocus = this.parentNode.getElementsByClassName("focus")[0];
     		var thisFocus = d3.select(thisFocus);
     		thisFocus.style("display", "none"); })
@@ -125,15 +125,15 @@ for (var i = 0; i < all_data.length; i++) {
     		currData.push(fullData[indexOfLast-2]);
     		currData.push(fullData[indexOfLast-1]);
     		currData.push(fullData[indexOfLast]);
-    		
+
     		var xPos = x.invert(d3.mouse(this)[0]) + .7;
     		var _index = bisectDate(currData, xPos) - 1;
-    		var _d = currData[_index]; 		
-    	
+    		var _d = currData[_index];
+
     		var thisFocus = this.parentNode.getElementsByClassName("focus")[0];
     		var thisFocus = d3.select(thisFocus);
     		thisFocus.attr("transform", "translate(" + x(_d.time) + "," + y(_d.val) + ")");
-    		thisFocus.select("text").text(_d.val);		    	
+    		thisFocus.select("text").text(_d.val);
     	});
 }
 
@@ -169,8 +169,9 @@ var svg = d3.select("#multiline-chart")
 // allTeamsData.forEach(function(d) {
 //     console.log(d);
 // });
-   
-x.domain(d3.extent(allTeamsData, function(d) { return d.Count; }));
+
+x.domain([0, 167]);
+// x.domain(d3.extent(allTeamsData, function(d) { return d.Count; }));
 y.domain([-40, 35]);
 
 // svg.append("path")
@@ -189,53 +190,79 @@ teamLabel.append("text")
 // var line = d3.line()
 //     .curve(d3.curveBasis)
 //     .x(function(d) { return x(d.Count); })
-//     .y(function(d) { 
+//     .y(function(d) {
 //         //console.log(d.Giants);
 //         return y(d.team); });
 
 // var teams = allTeamsData;
-// console.log(teams);
+console.log(allTeamsData);
+
+var flatTeamData;
 
 for (var i = 0; i < teams.length; i++) {
 
     var team = teams[i];
+
+		var teamData = allTeamsData[team];
+		flatTeamData = [];
+		for (var idx=1; idx<167; idx++){
+		  flatTeamData.push(
+		    {date: idx, standing: teamData[idx]}
+		  );
+		};
+		console.log(flatTeamData);
+
     var line = d3.line()
         .curve(d3.curveBasis)
-        .x(function(d) { return x(d.Count); })
-        .y(function(d) { 
-            //console.log(d.Giants);
-            return y(eval("d." + teams[i])); });
+        .x(function(d) {
+					console.log(d);
+					// console.log(d.date);
+					return x(d.date);
+					// return x(d.Count);
+				})
+        .y(function(d) {
+          //console.log(d.Giants);
+						// console.log(d.standing);
+          	return y(d.standing);
+					});
 
     svg.append("path")
-    .data([allTeamsData])
-    .attr("class", function(d) {
-        if (teams[i] == "Giants") {
-            return "line";
-        } else {
-            return "_line";
-        }
-    })
-    .attr("id", function(d) {
-        return teams[i];
-    })
+    	.data([flatTeamData])
+			.attr("class","line")
+			.attr("id",team)
+			.attr("d", line)
+			.on("mouseover",function(d) {
+				console.log(d);
+			})
+    // .attr("class", function(d) {
+				// console.log(d);
+        // if (teams[i] == "Giants") {
+        //     return "line";
+        // } else {
+        //     return "_line";
+        // }
+    // })
+    // .attr("id", function(d) {
+		// 		console.log(d);
+    //     return team;
+    // })
     //.attr("class", "_line" + " " + teams[i])
-    .attr("d", line)
-    .on("mouseover", function(d) {
-        //console.log(this.getAttribute('id'));
-        console.log(d);
-        var thisLabel = this.parentNode.getElementsByClassName("label")[0];
-        var thisLabel = d3.select(thisLabel);
-            thisLabel.select("text").text(this.getAttribute('id'));
-    })
- 
+    // .on("mouseover", function(d) {
+    //     //console.log(this.getAttribute('id'));
+    //     console.log(d);
+    //     var thisLabel = this.parentNode.getElementsByClassName("label")[0];
+    //     var thisLabel = d3.select(thisLabel);
+    //         thisLabel.select("text").text(this.getAttribute('id'));
+    // })
+
 
 }
 
     // text label for the x axis
-    svg.append("text") 
-    .attr("class", "bigger-axis-label")            
+    svg.append("text")
+    .attr("class", "bigger-axis-label")
       .attr("transform",
-            "translate(" + (width/2) + " ," + 
+            "translate(" + (width/2) + " ," +
                            (height + margin.top +25) + ")")
       .style("text-anchor", "middle")
       .text("Date");
@@ -247,7 +274,7 @@ for (var i = 0; i < teams.length; i++) {
         .attr("x",0 - (height / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
-        .text("Score");  
+        .text("Score");
 
 svg.append("g")
     .attr("transform", "translate(0," + height + ")")
