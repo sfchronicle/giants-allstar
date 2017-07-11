@@ -3,7 +3,7 @@
   <head>
     <title><%= json.project.seo_title %></title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="__sync_contentCategory" content="meterA">
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -18,8 +18,9 @@
 
   <div class="outer">
     <div class="top-container">
+      <img class="head-image" src="./assets/sinkinggiants.png"></img>
       <div class="title">It's been a long year</div>
-      <div class="title-deck">A year ago at the All-Star break, the Giants had the best record in baseball and fans were dreaming of another even-year parade through downtown San Francisco.</div>
+      <div class="title-deck"><p>A year ago at the All-Star break, the Giants had the best record in baseball and fans were dreaming of another even-year parade through downtown San Francisco.</p></div>
       <div class="author">By Mike Massa</div>
       <div class="date">July 11, 2017</div>
     </div>
@@ -37,12 +38,12 @@
       <p>The Giants played 162 games -- the equivalent of a full regular season -- from last year’s All-Star break to this year’s break. In those games, they went 64-98 and were the second-worst team in the entire league.</p> 
     </div>
 
-    <div id="multiline-chart">
+    <div class="multiline-container" id="multiline-chart">
       <div class="multiline-title">Game-by-game results since 2016's All-Star break</div>
-      <div class="multiline-deck"><i class="fa fa-hand-o-right" aria-hidden="true"> Hover over each line to see the team name and its current record.</i></div>
+      <div class="multiline-deck"><i class="fa fa-hand-o-right" aria-hidden="true"></i> Hover over each line to see the team name and its current record.</div>
     </div>
 
-    <div class="giants-text">
+    <div class="giants-text middle">
       <p>A look inside the numbers shows the fall is no fluke. The following charts break down team stats based on the first half of last year, the second half of last year and the first half of this year. In almost all cases, the decline has been steady and steep.</p>
     </div>
 
@@ -75,10 +76,19 @@
       <div class="chart-title">Team ERA</div>
       <div class="chart-deck">Starting pitching is supposed to be the strength of the team. But when the starting five have an ERA hovering around 5.00 and the offense scores less than four runs per game, it’s no wonder they’re at the bottom of the standings.</div>
     </div>
-
-
-
   </div>
+
+  <div class="divider"></div>
+  <div class="credits">
+    <div class="entry"><div>Research and writing: </div>Mike Massa  &bull; <a href="mailto:mmassa@sfchronicle.com">mmassa@sfchronicle.com</a></div> 
+
+    <div class="entry"><div>Assistant Sports Editor: </div>Janny Hu  &bull; <a href="mailto:jhu@sfchronicle.com">jhu@sfchronicle.com</a>  &bull; <a href = "https://twitter.com/janny_hu" target="_blank">@janny_hu</a></div>
+    
+    <div class="entry"><div>Interactive Producer: </div>Jackie Gu  &bull; <a href="mailto:jgu@sfchronicle.com">jgu@sfchronicle.com</a>   &bull; <a href = "https://twitter.com/jqlngu" target="_blank">@jqlngu</a></div>
+  </div>
+
+  <%= t.include("partials/_dontMiss.html") %>
+ 
 
   <script>
       var winningData = <%= JSON.stringify(csv.winning_percentage) %>;

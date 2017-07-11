@@ -4,6 +4,10 @@
     .justify-content(center);
     margin-left: 2em;
     margin-right: 2em;
+    @media @tablet {
+    margin-left: 0em;
+    margin-right: 0em;
+    }
 }
 
 .chart {
@@ -12,6 +16,14 @@
 	padding-right: 15px;
 	padding-bottom: 15px;
 	
+}
+
+.outer {
+	max-width: 100%;
+}
+
+.head-image {
+	width: 100%;
 }
 
 .title {
@@ -46,6 +58,7 @@
 }
 
 .multiline-deck {
+	font-family: "AntennaExtraLight", Helvetica Neue, Helvetica, sans-serif;
 	font-size: 14px;
 	padding-bottom: 25px;
 }
@@ -57,6 +70,11 @@
 .giants-text {
 	font-size: 16px;
 	width: 100%;
+}
+
+.middle {
+	padding-top: 45px;
+	padding-bottom: 20px;
 }
 
 .line {
@@ -85,13 +103,19 @@
 }
 
 .focus circle {
-  fill: none;
-  stroke: steelblue;
+  fill: black;
+  opacity: .45;
 }
 
 .overlay { 
 	fill: none;
 	pointer-events: all;
+}
+
+.multiline-container {
+	@media @tablet {
+
+	}
 }
 
 #multiline-chart {
@@ -138,6 +162,9 @@
 
 ._Giants {
 	font-family:"AntennaRegular", Helvetica Neue, Helvetica, sans-serif;
+	@media @mobile {
+		font-size: 10px;
+	}
 }
 
 #Giants_last._line {
@@ -156,6 +183,78 @@
 	color: black;
 	font-size: 13px;
 	white-space: pre-wrap;
+	@media @mobile {
+	font-size: 10px;
+	}
 }
 
+.credits {
+  //font-family: @block-graphics;
+  font-size: 14px;
+  .entry {
+    padding: 0;
+    padding-bottom: 15px;
+  }
+  @media @mobile {
+    padding: 0 20px;
+  }
+}
 
+.divider {
+  padding-top:30px;
+  width: 80%;
+  margin: auto;
+  border-bottom: 1px @dark-gray solid;
+  height: 2px;
+}
+
+.dont-miss {
+  .display-flex;
+  .flex-wrap(wrap);
+  	max-width: 1050px;
+	margin:0 auto;
+  font-size: 17px;
+  font-family: @block-graphics;
+  @media @mobile {
+    margin-bottom: 40px;
+  }
+
+  @media @tablet {
+  	max-width: 700px;
+  }
+
+  .story {
+    .flex(0 0 33%);
+    a {
+      font-family: @med-graphics;
+    }
+
+    @media @mobile {
+      .flex(1 1 100%);
+      font-size: 16px;
+    }
+  }
+  .padded {
+    padding: 10px;
+  }
+  .small {
+    font-size: 15px;
+  }
+  img {
+    width: 100%;
+  }
+
+}
+
+ .center {
+      margin: 0 auto;
+     text-align: center;
+     font-size: 20px;
+     padding-bottom: 10px;
+    }
+
+p {
+	@media @tablet {
+		max-width: 700px;
+	}
+}

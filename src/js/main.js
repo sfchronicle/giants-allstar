@@ -8,7 +8,7 @@ var all_data = [winningData, runsData, battingData, homerunsData, opsData, eraDa
 var y_ranges = [[.3, .65], [3.6, 4.8], [.24, .27], [.7, .9], [.65, .75], [3.5, 4.9]];
 var y_axis_labels = ["Winning percentage (wins per game)", "Runs per game", "Batting average", "Home runs per game", "OPS (on-base plus slugging)", "ERA (earned run average)"];
 
-if (screen.width <= 400) {
+if (screen.width <= 780) {
     var margin = {top: 20, right: 30, bottom: 40, left: 55},
        width = 320 - margin.right - margin.left,
        height = 300 - margin.top - margin.bottom;
@@ -167,10 +167,15 @@ var records = {"Giants": "64-98", "Giants_last": ["Where the Giants stood", "aft
 //     height = 600 - margin.top - margin.bottom;
 
 if (screen.width <= 480) {
-    var margin = {top: 15, right: 150, bottom: 40, left: -35},
-    width = 360 - margin.right - margin.left,
+    var margin = {top: 15, right: 150, bottom: 40, left: 0},
+    width = 380 - margin.right - margin.left,
     height = 300 - margin.top - margin.bottom;
-} else {
+} else if (screen.width <= 780) {
+    console.log(screen.width);
+    var margin = {top: 20, right: 170, bottom: 40, left: 0},
+    width = 750 - margin.right - margin.left,
+    height = 500 - margin.top - margin.bottom;
+} else if (screen.width >= 780) {
     var margin = {top: 20, right: 170, bottom: 40, left: 0},
     width = 1060 - margin.right - margin.left,
     height = 600 - margin.top - margin.bottom;
@@ -210,13 +215,6 @@ teamLabel.append("text")
         .attr("dy", ".35em");
 
 
-
-// var line = d3.line()
-//     .curve(d3.curveBasis)
-//     .x(function(d) { return x(d.Count); })
-//     .y(function(d) {
-//         //console.log(d.Giants);
-//         return y(d.team); });
 
 // var teams = allTeamsData;
 console.log(allTeamsData);
@@ -308,6 +306,7 @@ for (var i = 0; i < teams.length; i++) {
 
     svg.append("text")
         .data([flatTeamData])
+        .attr("id",team_sanitized)
         .attr("transform", function(d) {
             //console.log(d);
             if (screen.width >= 480) {
@@ -315,12 +314,16 @@ for (var i = 0; i < teams.length; i++) {
                 var y_posn = y(d[d.length - 1].standing);
                 return "translate(" + x_posn + "," + y_posn + ")";
             } else {
-                return "translate(" + ((width/2)-45) + "," + (height-20) + ")";
+                console.log(this.getAttribute('id'));
+                if (this.getAttribute('id') == 'Giants') {
+                    return "translate(10, 165)";
+                } else {
+                    return "translate(" + ((width/2)-45) + "," + (height-20) + ")";
+                }
             }
         })
         .attr("x", 60)
         .attr("y", ".35em")
-        .attr("id",team_sanitized)
         .attr("class", function(d) {
             var id = this.getAttribute('id');
             if (id == 'Giants') {
@@ -344,7 +347,7 @@ for (var i = 0; i < teams.length; i++) {
                 if (screen.width >= 480) {
                     return "translate(" + x(8) + "," + y(28) + ")";
                 } else {
-                    return "translate(" + ((width/2)-45) + "," + (height-20) + ")";
+                    return "translate(10, 40)";
                 }
             })
             .attr("x", 60)
@@ -361,7 +364,7 @@ for (var i = 0; i < teams.length; i++) {
             "translate(" + (width/2 + 55) + " ," +
                            (height + margin.top +25) + ")")
       .style("text-anchor", "middle")
-      .text("Date");
+      .text("Number of games");
 
     svg.append("text")
         .attr("class", "bigger-axis-label")
@@ -374,7 +377,16 @@ for (var i = 0; i < teams.length; i++) {
 
 svg.append("g")
     .attr("transform", "translate(55," + height + ")")
-    .call(d3.axisBottom(x));
+    .call(d3.axisBottom(x).ticks(6).tickFormat(function(d) {
+        var mapper = {
+            0: "Last year's break",
+            60: 60,
+            120: 120,
+            180: "This year's break"
+
+        }
+        return mapper[d];
+    }));
 
 
 
