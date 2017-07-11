@@ -24,12 +24,32 @@
 
 .head-image {
 	width: 100%;
+	@media @mobile {
+		padding-top: 25px;
+	}
+}
+
+.img-credit {
+	text-align: right;
+	padding-right: 10px;
+	margin-top: -8px;
+	font-size: 12px;
+	font-family: "AntennaExtraLight", Helvetica Neue, Helvetica, sans-serif;
+	font-style: italic;
+	@media @mobile {
+		font-size: 10px;
+	}
+
 }
 
 .title {
 	font-size: 30px;
 	margin-top: 50px;
 	margin-bottom: 20px;
+	@media @mobile {
+		font-size: 25px;
+		margin-top: 20px;
+	}
 }
 
 .title-deck {
