@@ -15,6 +15,10 @@
 	padding-left: 15px;
 	padding-right: 15px;
 	padding-bottom: 15px;
+	@media @mobile {
+		padding-left: 10px;
+		padding-right: 10px;
+	}
 	
 }
 
@@ -25,8 +29,9 @@
 
 .head-image {
 	width: 100%;
+	padding-top: 42px;
 	@media @tablet {
-		padding-top: 40px;
+		padding-top: 42px;
 	}
 }
 
@@ -110,6 +115,9 @@
 .tick {
 	text {
 		font-size: 11px;
+		@media @mobile {
+			font-size: 9px;
+		}
 	}
 }
 
@@ -120,7 +128,7 @@
 .bigger-axis-label {
 	font-size: 16px;
 	@media @mobile {
-		font-size: 12px;
+		font-size: 11px;
 	}
 
 	

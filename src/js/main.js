@@ -18,7 +18,6 @@ if (screen.width <= 780) {
 	   height = 300 - margin.top - margin.bottom;
 }
 
-
 // labels for x axis
 var seasons = ["First half 2016", "Second half 2016", "First half 2017"];
 
@@ -156,7 +155,7 @@ var teams = ["Giants", "Giants_last", "Braves", "Marlins", "Mets", "Phillies", "
 "Pirates", "Cardinals", "Cubs", "Orioles", "Red Sox", "Yankees", "Rays", "Blue Jays", "White Sox", "Indians", "Tigers", "Royals", "Twins", "A's", "Astros", "Angels", "Mariners", "Rangers"];
 var teams_sanitized = ["Giants", "Giants_last", "Braves", "Marlins", "Mets", "Phillies", "Nationals", "Dodgers", "Rockies", "Dbacks", "Padres", "Reds", "Brewers",
 "Pirates", "Cardinals", "Cubs", "Orioles", "RedSox", "Yankees", "Rays", "BlueJays", "WhiteSox", "Indians", "Tigers", "Royals", "Twins", "As", "Astros", "Angels", "Mariners", "Rangers"];
-var records = {"Giants": "64-98", "Giants_last": ["Where the Giants stood", "after 2016's break, at +24"], "Braves": "79-80", "Marlins": "73-87", "Mets": "79-81", "Phillies":"58-101", "Nationals": "93-67", "Dodgers": "101-60", "Rockies":"87-78", "D'backs":"84-77", "Padres":"68-93", "Reds":"75-86", "Brewers":"85-81",
+var records = {"Giants": "64-98", "Giants_last": ["The Giants were 57-33 \u2014 24 games", "above .500 \u2014 entering last year's break."], "Braves": "79-80", "Marlins": "73-87", "Mets": "79-81", "Phillies":"58-101", "Nationals": "93-67", "Dodgers": "101-60", "Rockies":"87-78", "D'backs":"84-77", "Padres":"68-93", "Reds":"75-86", "Brewers":"85-81",
 "Pirates":"74-87", "Cardinals":"83-79", "Cubs":"93-68", "Orioles":"80-83", "Red Sox":"94-70", "Yankees":"85-75", "Rays":"81-83", "Blue Jays":"79-80", "White Sox":"71-90", "Indians":"89-71", "Tigers":"79-80", "Royals":"80-81", "Twins":"72-90", "A's":"70-92", "Astros":"96-66", "Angels":"82-83", "Mariners":"84-79", "Rangers":"84-76"};
 
 //var teams = {"Giants": "NL West", "Braves": "NL East", "Marlins": "NL East", "Mets": "NL East", "Phillies": "NL East", "Nationals": "NL East", "Dodgers": "NL West", "Rockies": "NL West", "Dbacks": "NL West", "Padres": "NL West", "Reds": "NL Central", "Brewers": "NL Central",
@@ -166,13 +165,9 @@ var records = {"Giants": "64-98", "Giants_last": ["Where the Giants stood", "aft
 //     width = 960 - margin.right - margin.left,
 //     height = 600 - margin.top - margin.bottom;
 
-if (screen.width <= 350) {
-    var margin = {top: 15, right: 150, bottom: 40, left: 0},
-    width = 380 - margin.right - margin.left,
-    height = 300 - margin.top - margin.bottom;
-} else if (screen.width <= 480) {
-    var margin = {top: 15, right: 150, bottom: 40, left: 0},
-    width = 420 - margin.right - margin.left,
+if (screen.width <= 480) {
+    var margin = {top: 15, right: 100, bottom: 40, left: 0},
+    width = screen.width - margin.right - margin.left,
     height = 300 - margin.top - margin.bottom;
 } else if (screen.width <= 780) {
     console.log(screen.width);
@@ -354,7 +349,7 @@ for (var i = 0; i < teams.length; i++) {
                     return "translate(10, 40)";
                 }
             })
-            .attr("x", 60)
+            .attr("x", 50)
             .attr("y", (1.45*j - 1).toString() + "em")
             .attr("id", "Giants_last")
             .attr("class", "_Giants_last")
@@ -373,8 +368,14 @@ for (var i = 0; i < teams.length; i++) {
     svg.append("text")
         .attr("class", "bigger-axis-label")
         .attr("transform", "rotate(-90)")
-        .attr("y", 0)
-        .attr("x",0 - (height / 2))
+        .attr("y", function(d) {
+            if (screen.width <= 480) {
+                return 10;
+            } else {
+                return 0;
+            }
+        })
+        .attr("x", 0 - (height / 2))
         .attr("dy", "1em")
         .style("text-anchor", "middle")
         .text("Games above or below .500");
@@ -383,10 +384,10 @@ svg.append("g")
     .attr("transform", "translate(55," + height + ")")
     .call(d3.axisBottom(x).ticks(6).tickFormat(function(d) {
         var mapper = {
-            0: "Last year's break",
+            0: "2016 All-Star break",
             60: 60,
             120: 120,
-            180: "This year's break"
+            180: "2017 All-Star break"
 
         }
         return mapper[d];
