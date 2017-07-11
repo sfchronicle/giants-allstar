@@ -14,7 +14,7 @@ if (screen.width <= 400) {
        height = 300 - margin.top - margin.bottom;
 } else {
     var margin = {top: 20, right: 30, bottom: 40, left: 55},
-	   width = 400 - margin.right - margin.left,
+	   width = 360 - margin.right - margin.left,
 	   height = 300 - margin.top - margin.bottom;
 }
 
@@ -156,7 +156,7 @@ var teams = ["Giants", "Giants_last", "Braves", "Marlins", "Mets", "Phillies", "
 "Pirates", "Cardinals", "Cubs", "Orioles", "Red Sox", "Yankees", "Rays", "Blue Jays", "White Sox", "Indians", "Tigers", "Royals", "Twins", "A's", "Astros", "Angels", "Mariners", "Rangers"];
 var teams_sanitized = ["Giants", "Giants_last", "Braves", "Marlins", "Mets", "Phillies", "Nationals", "Dodgers", "Rockies", "Dbacks", "Padres", "Reds", "Brewers",
 "Pirates", "Cardinals", "Cubs", "Orioles", "RedSox", "Yankees", "Rays", "BlueJays", "WhiteSox", "Indians", "Tigers", "Royals", "Twins", "As", "Astros", "Angels", "Mariners", "Rangers"];
-var records = {"Giants": "64-98", "Braves": "79-80", "Marlins": "73-87", "Mets": "79-81", "Phillies":"58-101", "Nationals": "93-67", "Dodgers": "101-60", "Rockies":"87-78", "D'backs":"84-77", "Padres":"68-93", "Reds":"75-86", "Brewers":"85-81",
+var records = {"Giants": "64-98", "Giants_last": ["Where the Giants stood", "after 2016's break, at +24"], "Braves": "79-80", "Marlins": "73-87", "Mets": "79-81", "Phillies":"58-101", "Nationals": "93-67", "Dodgers": "101-60", "Rockies":"87-78", "D'backs":"84-77", "Padres":"68-93", "Reds":"75-86", "Brewers":"85-81",
 "Pirates":"74-87", "Cardinals":"83-79", "Cubs":"93-68", "Orioles":"80-83", "Red Sox":"94-70", "Yankees":"85-75", "Rays":"81-83", "Blue Jays":"79-80", "White Sox":"71-90", "Indians":"89-71", "Tigers":"79-80", "Royals":"80-81", "Twins":"72-90", "A's":"70-92", "Astros":"96-66", "Angels":"82-83", "Mariners":"84-79", "Rangers":"84-76"};
 
 //var teams = {"Giants": "NL West", "Braves": "NL East", "Marlins": "NL East", "Mets": "NL East", "Phillies": "NL East", "Nationals": "NL East", "Dodgers": "NL West", "Rockies": "NL West", "Dbacks": "NL West", "Padres": "NL West", "Reds": "NL Central", "Brewers": "NL Central",
@@ -309,6 +309,7 @@ for (var i = 0; i < teams.length; i++) {
     svg.append("text")
         .data([flatTeamData])
         .attr("transform", function(d) {
+            //console.log(d);
             if (screen.width >= 480) {
                 var x_posn = x(d[d.length - 1].date);
                 var y_posn = y(d[d.length - 1].standing);
@@ -329,16 +330,29 @@ for (var i = 0; i < teams.length; i++) {
             }
         })
         .text(function(d) {
-            return team + ", " + records[team];
+            if (team != "Giants_last") {
+                return team + ", " + records[team];
+            }
         })
 
 
-
-
-
-
-
 }
+
+    for (var j = 0; j < records["Giants_last"].length; j++) {
+        svg.append("text")
+            .attr("transform", function(d) {
+                if (screen.width >= 480) {
+                    return "translate(" + x(8) + "," + y(28) + ")";
+                } else {
+                    return "translate(" + ((width/2)-45) + "," + (height-20) + ")";
+                }
+            })
+            .attr("x", 60)
+            .attr("y", (1.45*j - 1).toString() + "em")
+            .attr("id", "Giants_last")
+            .attr("class", "_Giants_last")
+            .text(records["Giants_last"][j]);
+        }
 
     // text label for the x axis
     svg.append("text")
