@@ -166,13 +166,17 @@ var records = {"Giants": "64-98", "Giants_last": ["Where the Giants stood", "aft
 //     width = 960 - margin.right - margin.left,
 //     height = 600 - margin.top - margin.bottom;
 
-if (screen.width <= 480) {
+if (screen.width <= 350) {
     var margin = {top: 15, right: 150, bottom: 40, left: 0},
     width = 380 - margin.right - margin.left,
     height = 300 - margin.top - margin.bottom;
+} else if (screen.width <= 480) {
+    var margin = {top: 15, right: 150, bottom: 40, left: 0},
+    width = 420 - margin.right - margin.left,
+    height = 300 - margin.top - margin.bottom;
 } else if (screen.width <= 780) {
     console.log(screen.width);
-    var margin = {top: 20, right: 170, bottom: 40, left: 0},
+    var margin = {top: 20, right: 160, bottom: 40, left: 0},
     width = 750 - margin.right - margin.left,
     height = 500 - margin.top - margin.bottom;
 } else if (screen.width >= 780) {
