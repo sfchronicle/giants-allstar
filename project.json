@@ -1,18 +1,18 @@
 {
   "year":"2017",
-  "title": "",
-  "description": "",
-  "seo_title": "",
-  "author":"",
-  "hearst_category":"",
+  "title": "That sinking feeling: It’s been a long year for the Giants",
+  "description": "A year ago at the All-Star break, the Giants had the best record in MLB. Now they own the second-worst record in baseball. Here's a breakdown looking just how far the team has fallen.",
+  "seo_title": "By-the-numbers: How S.F. Giants fell so far behind at the All-Star break",
+  "author":"Mike Massa",
+  "hearst_category":"sports",
   "date":"2017-07-11",
   "url": "http://projects.sfchronicle.com/2017/",
   "slug": "giants-all-star-break/",
-  "twitter_text":"",
+  "twitter_text":"That sinking feeling: It’s been a long year for the Giants",
   "hashtag":"",
-  "image": "assets/social.jpg",
+  "image": "assets/sinkinggiants.jpg?",
   "sheets": [],
   "docsID":"",
   "production": false,
-  "embedded": true 
+  "embedded": false 
 }

@@ -12,9 +12,10 @@
 
 .chart {
 	.flex(0 0 33%);
-	padding-left: 15px;
-	padding-right: 15px;
 	padding-bottom: 15px;
+	@media @mobile {
+		.flex(0 0 100%);
+	}
 }
 
 .outer {
@@ -44,17 +45,17 @@
 }
 
 .title {
-	font-size: 30px;
-	margin-top: 50px;
-	margin-bottom: 20px;
+	font-size: 40px;
+	margin-top: 40px;
+	margin-bottom: 15px;
 	@media @mobile {
-		font-size: 25px;
+		font-size: 30px;
 		margin-top: 20px;
 	}
 }
 
 .title-deck {
-	font-size: 18px;
+	font-size: 24px;
 	text-align: center;
 	margin-bottom: 20px;
 }
@@ -76,12 +77,41 @@
 	font-family: "AntennaExtraLight", Helvetica Neue, Helvetica, sans-serif;
 	font-size: 14px;
 	height: 7em;
+	@media @mobile {
+		max-width: 95%;
+		margin: 0 auto;
+		height: auto;
+
+	}
+
 }
 
 .multiline-deck {
 	font-family: "AntennaExtraLight", Helvetica Neue, Helvetica, sans-serif;
 	font-size: 14px;
 	padding-bottom: 25px;
+	padding-left: 5px;
+	padding-right: 5px;
+	@media @mobile {
+		padding-bottom: 15px;
+	}
+
+	&.desktop-chatter {
+		@media @mobile {
+			display: none;
+		}
+	}
+
+	&.mobile-chatter {
+		display: none;
+		@media @mobile {
+			display: block;
+		}
+	}
+}
+
+.mobile {
+	display: none;
 }
 
 .author, .date {
@@ -209,7 +239,6 @@
 	font-family:"AntennaRegular", Helvetica Neue, Helvetica, sans-serif;
 	color: black;
 	font-size: 13px;
-	white-space: pre-wrap;
 	@media @mobile {
 	font-size: 10px;
 	}
@@ -283,5 +312,9 @@
 p {
 	@media @tablet {
 		max-width: 700px;
+	}
+	font-size: 18px;
+	@media @mobile {
+		font-size: 16px;
 	}
 }

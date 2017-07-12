@@ -19,7 +19,7 @@ if (screen.width <= 780) {
 }
 
 // labels for x axis
-var seasons = ["First half 2016", "Second half 2016", "First half 2017"];
+var seasons = ["Pre-break 2016", "Post-break 2016", "Pre-break 2017"];
 
 var i = 0;
 
@@ -179,6 +179,8 @@ if (screen.width <= 480) {
     width = 1060 - margin.right - margin.left,
     height = 600 - margin.top - margin.bottom;
 }
+
+
 
 var x = d3.scaleLinear().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
