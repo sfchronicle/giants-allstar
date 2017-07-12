@@ -250,6 +250,7 @@ for (var i = 0; i < teams.length; i++) {
         .x(function(d) { return x(d.date); })
         .y(function(d) { return y(d.standing); })
 
+    // function to make line bold upon mouseover    
     svg.append("path")
     	.data([flatTeamData])
 			.attr("class", function(d) {
@@ -263,19 +264,18 @@ for (var i = 0; i < teams.length; i++) {
 			.attr("id",team_sanitized)
 			.attr("d", line)
 			.on("mouseover",function(d) {
-
 				console.log(this.getAttribute('id'));
-
 				var id = this.getAttribute('id');
+                d3.selectAll('.show-text').classed("label", true);
                 d3.select("._"+id).classed("show", true);
 
                 if (id != "Giants") {
+                    d3.selectAll('._line').classed("moused", false);
                     d3.select(this).classed("moused", true);
 
                 } else {
                     d3.select(this).classed("giants-moused", true);
-                }
-                
+                }  
 			})
             .on("mouseout", function(d) {
                 var id = this.getAttribute('id');
@@ -305,8 +305,10 @@ for (var i = 0; i < teams.length; i++) {
     //             d3.select(this).classed("moused", false);
     //         })
 
+    // function to add text upon mouseover
     svg.append("text")
         .data([flatTeamData])
+        //.attr("class", "show-label")
         .attr("id",team_sanitized)
         .attr("transform", function(d) {
             //console.log(d);
@@ -330,7 +332,8 @@ for (var i = 0; i < teams.length; i++) {
             if (id == 'Giants') {
                 return ("_" + id);
             } else {
-                return ("_" + id + " label");
+                //d3.selectAll(".show-label").
+                return ("_" + id + " label show-text");
             }
         })
         .text(function(d) {
@@ -341,7 +344,8 @@ for (var i = 0; i < teams.length; i++) {
 
 
 }
-
+    
+    // adds label to dotted line
     for (var j = 0; j < records["Giants_last"].length; j++) {
         svg.append("text")
             .attr("transform", function(d) {
@@ -401,6 +405,34 @@ svg.append("g")
 .attr("transform", "translate(55,0)")
     .call(d3.axisLeft(y).ticks(10));
 
+var yearSelect = document.querySelector('select');
+yearSelect.selectedIndex = 10;
+yearSelect.addEventListener('change', handleChange, false);
+
+function handleChange (e) {
+  var option   = e.target.options[e.target.selectedIndex];
+  //console.log(option.value);
+  for (var k = 0; k < e.target.options.length; k++) {
+    if (e.target.options[k].value != option.value && e.target.options[k].value != 'Giants') {
+        d3.select("#" + e.target.options[k].value).classed("moused", false);
+        d3.select("._" + e.target.options[k].value).classed("label", true);
+    } else if (e.target.options[k].value != option.value && e.target.options[k].value == 'Giants') {
+        d3.select("#" + e.target.options[k].value).classed("giants-moused", false);
+    }
+  }
+  //console.log(d3.select("#" + option.value));
+  if (option.value != 'Giants') {
+    d3.select("#" + option.value).classed("moused", true);
+  } else {
+    d3.select("#" + option.value).classed("giants-moused", true);
+  }
+  d3.select("._" + option.value).classed("label", false);
+ 
+  // map.addLayer(eval("markers201"+option.value[3]));
+}
+
 }
 
 multiLineChart();
+
+
